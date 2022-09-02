@@ -7,7 +7,7 @@ const loadTheCatagories = async () => {
     displayTheCategories(data.data.news_category);
 }
 
-const displayTheCategories = categories => {
+const displayTheCategories = (categories) => {
     console.log(categories);
     const categoriesContainer = document.getElementById('categories-container')
     categories.forEach(category => {
@@ -16,10 +16,16 @@ const displayTheCategories = categories => {
         const newCategoriesDiv = document.createElement('div');
         newCategoriesDiv.classList.add('news-category-name');
         newCategoriesDiv.innerHTML = `
-        <p onclick="load" class="mx-7 hover:bg-indigo-100 hover:text-indigo-600 px-2 rounded font-medium">${category.category_name}</p>
+        <p onclick="displayNewsCard('${category.category_id}')" class="mx-7 hover:bg-indigo-100 hover:text-indigo-600 px-2 rounded font-medium">${category.category_name}</p>
         
         `;
         categoriesContainer.appendChild(newCategoriesDiv);
     });
 }
+
+const displayNewsCard = async () => {
+
+}
+
+
 loadTheCatagories();
