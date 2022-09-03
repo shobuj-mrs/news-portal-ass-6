@@ -1,39 +1,39 @@
-
-const loadNavbarDefault = () => {
-    const navbarPart = document.getElementById('navbar-default');
-    navbarPart.classList.toggle('hidden');
+const loadNavbar = () => {
+    const navbarContainer = document.getElementById('navbar-default');
+    navbarContainer.classList.toggle('hidden');
 }
 
-const loadDataCatagories = async () => {
+const loadNewsCatagories = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
-    displayDataCategories(data.data.news_category);
+    disNewsCatagories(data.data.news_category);
 }
+const disNewsCatagories = (catagories) => {
+    const newsCatagoriesContainer = document.getElementById('news-catagories-container');
+    newsCatagoriesContainer.innerHTML = '';
+    catagories.forEach(catagory => {
+        //console.log(catagory);
 
-const displayDataCategories = (categories) => {
-    // console.log(categories);
-
-    const categoriesContainer = document.getElementById('categories-container')
-    categories.forEach(category => {
-        // console.log(category);
-
-        const newCategoriesDiv = document.createElement('div');
-        newCategoriesDiv.classList.add('news-category-name');
-        newCategoriesDiv.innerHTML = `
-        <p onclick="loadNewsCard('${category.category_id}')" class="mx-6 hover:bg-indigo-100 hover:text-indigo-600 px-2 rounded font-medium">${category.category_name}</p>
-        `;
-        categoriesContainer.appendChild(newCategoriesDiv);
+        const newsCatagoryDiv = document.createElement('div');
+        newsCatagoryDiv.classList.add('newsCatagoyName');
+        newsCatagoryDiv.innerHTML = `
+            <div>
+                <a href="#" onclick="loadNewsCards('${catagory.category_id}'), loadCatagoryName('${catagory.category_name}')" class="text-center mx-5 font-semibold">${catagory.category_name}</a>
+            <div>
+        `
+        newsCatagoriesContainer.appendChild(newsCatagoryDiv);
     });
-}
 
+
+}
 const loadCatagoryName = (catagoryName) => {
-    const foundResultNewsCatagoryName = document.getElementById('found-result-news-catagory-name');
-    foundResultNewsCatagoryName.innerHTML = `<h1> ${catagoryName}</h1>`
+    const foundResultContainerCatagoryName = document.getElementById('found-result-container-catagory-name');
+    foundResultContainerCatagoryName.innerHTML = `<h1> ${catagoryName}</h1>`
     console.log(catagoryName);
 }
 
-// loading the  spinner  part
+// loading spinner 
 const toggleLoader = isLoading => {
     const loaderSection = document.getElementById('loading');
     if (isLoading) {
@@ -44,93 +44,65 @@ const toggleLoader = isLoading => {
     }
 }
 
-const loadNewsCard = async (category_id) => {
+const loadNewsCards = async (category_id) => {
     toggleLoader(true);
-
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
-    loadDisplayNews(data.data);
+    displayNewsCards(data.data);
+
 }
-
-const loadDisplayNews = (cards) => {
-    const newsCardContainer = document.getElementById('news-card-container');
+const displayNewsCards = (cards) => {
+    const newsCardContainer = document.getElementById('news-cards-container');
     newsCardContainer.innerHTML = '';
-
-    const resultFound = document.getElementById('found-result-container');
-    resultFound.innerHTML = `
-    <div class="container mx-auto">
-    <div class="bg-white p-2 my-4 ">
-       <h1 class="text-3xl text-indigo-500">${cards.length} News items found for this category!!! </h1>
-    </div>
-    <div class="flex items-center justify-between my-8">
-    <div>
-        <span class="font-normal">Sort<span class="font-semibold"> By View : </span></span>
-      <button class=" bg-white font-normal px-2 py-1 rounded text-[#ABADC6] ">Default <i class="fa-solid fa-chevron-down ml-4"></i></button>
-    </div>
-
-
-    <div>
-
-    <button class="bg-[#5D5FEF] px-2 py-1 text-white rounded text-normal ">Today's Pick</button>
-    <button class="border border-[#5D5FEF] rounded px-2 py-1 text-[#5D5FEF] text-normal">Trend</button>
-
-    </div>
-    </div>
-    </div>
-    `;
+    //console.log(cards);
+    const foundResultContainer = document.getElementById('foundresultcontainer');
+    foundResultContainer.innerHTML = `<h1>${cards.length} items found for category </h1>`
     cards.forEach(card => {
-        // console.log(card);
-
-        const newCardDiv = document.createElement('div');
-        newCardDiv.classList.add('newsCard');
-        newCardDiv.innerHTML = `
-        <div class="flex border border-2 drop-shadow-xl rounded-md flex-col lg:flex-row ">
-            <div class="w-2/5 p-5">
-            <img src=${card.image_url} alt="">
-            </div>
-            <div class="p-5 w-3/5">
-                <h1 class="text-2xl font-bold">${card.title ? card.title : 'Title is Not Found Here'}.</h1>
-                <p class="my-4 font-italic hover:font-not-italic mr-10 overflow-hidden">
-                    ${card.details.length > 100 ? card.details.slice(0, 400) + '...' : 'Details is Not Found Here'}
-                </p>
-                <div class="flex items-end">
-                    <div class="grid items-center grid-cols-4">
-                       <div>
+        const newsCardDiv = document.createElement('div');
+        newsCardDiv.classList.add('newsCard');
+        newsCardDiv.innerHTML = `
+            <div onclick="loadCardNewsDetails('${card._id}')" class="flex border border-2 drop-shadow-xl rounded-md flex-col lg:flex-row ">
+                <div class="w-full lg:w-1/5 p-5 flex justify-center">
+                    <img src=${card.thumbnail_url} alt="">
+                </div>
+                <div class="px-3 lg:px-5 py-3 lg:py-12 w-full lg:w-4/5">
+                    <h1 class="text-xl font-bold">${card.title ? card.title : 'No Title Found'}.</h1>
+                    <p class="my-4 lg:mr-10 overflow-hidden">
+                        ${card.details.length > 150 ? card.details.slice(0, 300) + '...' : 'No details Found'}
+                    </p>
+                    <div>
+                        <div class="grid grid-cols-2 ">
                             <div class="flex items-center">
                                 <div>
-                                    <img class="w-10 h-10 rounded-full mr-4" src=${card.author.img} alt="Image is Not Found Here">
+                                    <img class="w-10 h-10 rounded-full mr-4" src=${card.author.img} alt="Image Not Found">
                                 </div>
-                            <div>
-                                <p class=" font-semibold text-indigo-500">
-                                    ${card.author.name ? card.author.name : 'Author Name  is not Found!'}
-                                </p>
-                               
-                       </div>
-                   </div>
-                       </div>
+                                <div>
+                                    <p class=" font-bold">
+                                        ${card.author.name ? card.author.name : 'Author Name not Found!'}
+                                        
+                                    </p>
+                                </div>
+                            </div>
 
-                        <img src="images/carbon_view.png" alt="">
-                        <div class="flex">
-                            <span><i class="fa-solid fa-eye"></i></span>
-                            <p class="ml-5 font-bold">${card.rating.number ? card.rating.number : 'View Data is Not Found'}</p>
-                        </div> 
-                        <div>
-                        <span onclick="loadCardNewsDetails('${card._id}')"  class="mx-20 text-blue-500 hover:bg-indigo-100 px-3 rounded"><i class="fa-solid fa-arrow-right"></i></span>
+                            <div class="flex items-center justify-end">
+                                <img class="w-6 h-6" src="images/carbon_view.png" alt="">
+                                <div>
+                                    <p class="ml-5 font-bold mr-14">${card.total_view ? card.total_view : 'No views'}</p>
+                                </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
         `
-        newsCardContainer.appendChild(newCardDiv);
-    })
-
+        newsCardContainer.appendChild(newsCardDiv);
+    });
     toggleLoader(false);
+
 }
 
-//load the news id data
+// news id data 
 const loadCardNewsDetails = async (news_id) => {
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
     const res = await fetch(url);
@@ -143,7 +115,7 @@ const displayModalDetails = (modalNews) => {
     const newsModalContainer = document.getElementById('modal-container');
     newsModalContainer.innerHTML = '';
 
-    console.log(modalNews);
+    //console.log(modalNews);
 
     const newsModalDiv = document.createElement('div');
     newsModalDiv.classList.add('modalnews');
@@ -183,9 +155,9 @@ const displayModalDetails = (modalNews) => {
                                     </div>
 
                                     <div class="flex items-center justify-end">
-                                    <span><i class="fa-solid fa-eye"></i></span>
+                                        <img class="w-6 h-6" src="images/carbon_view.png" alt="">
                                         <div>
-                                            <p class="ml-5 font-bold">${modalNews.rating.number ? modalNews.total_view : 'No views'}</p>
+                                            <p class="ml-5 font-bold">${modalNews.total_view ? modalNews.total_view : 'No views'}</p>
                                         </div> 
                                     </div>
                                 </div>
@@ -206,12 +178,14 @@ const displayModalDetails = (modalNews) => {
 
 
 }
-
-
 const closeModal = () => {
     const defaltModal = document.getElementById('modalContainer')
     defaltModal.classList.add('hidden');
 }
+// const openModal = 
+// document.toggleLoader('defaultModalT').addEventListener('click', function(){
+//     const defaltModal = document.getElementById('defaultModal')
+//     defaltModal.classList.remove('hidden');
+// })
 
-
-loadDataCatagories();
+loadNewsCatagories();
