@@ -113,7 +113,7 @@ const loadDisplayNews = (cards) => {
                         <img src="images/carbon_view.png" alt="">
                         <div class="flex">
                             <span><i class="fa-solid fa-eye"></i></span>
-                            <p class="ml-5 font-bold">${card.rating.number ? card.rating.number : 'View Data is Not Found'}</p>
+                            <p class="ml-5 font-bold">${card.total_view ? card.total_view : 'View Data is Not Found'}</p>
                         </div> 
                         <div>
                         <span onclick="loadCardNewsDetails('${card._id}')"  class="mx-20 text-blue-500 hover:bg-indigo-100 px-3 rounded"><i class="fa-solid fa-arrow-right"></i></span>
@@ -185,7 +185,7 @@ const displayModalDetails = (modalNews) => {
                                     <div class="flex items-center justify-end">
                                     <span><i class="fa-solid fa-eye"></i></span>
                                         <div>
-                                            <p class="ml-5 font-bold">${modalNews.rating.number ? modalNews.total_view : 'No views'}</p>
+                                            <p class="ml-5 font-bold">${modalNews.rating.number ? modalNews.rating.number : 'View Data is Not Found'}</p>
                                         </div> 
                                     </div>
                                 </div>
