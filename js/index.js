@@ -49,25 +49,31 @@ const loadDisplayNewsCard = (cards) => {
                     ${card.details.length > 100 ? card.details.slice(0, 400) + '...' : 'Details is Not Found Here'}
                 </p>
                 <div class="flex items-end">
-                    <div class="grid items-center grid-cols-2">
-                        <div class="flex items-center">
+                    <div class="grid items-center grid-cols-4">
+                       <div>
+                            <div class="flex items-center">
+                                <div>
+                                    <img class="w-10 h-10 rounded-full mr-4" src=${card.author.img} alt="Image is Not Found Here">
+                                </div>
                             <div>
-                                <img class="w-10 h-10 rounded-full mr-4" src=${card.author.img} alt="Image is Not Found Here">
-                            </div>
-                            <div>
-                                <p class=" text-2xl font-semibold">
+                                <p class=" font-semibold">
                                     ${card.author.name ? card.author.name : 'Author Name  is not Found!'}
                                 </p>
                                 <p class=" text-xl">
                                     ${card.author.published_date.length > 11 ? card.author.published_date.slice(0, 10) : 'This news published date is not Found!'}
                                 </p>
-                            </div>
-                        </div>
+                       </div>
+                   </div>
+                       </div>
 
                         <img src="images/carbon_view.png" alt="">
-                        <div>
-                            <p class="ml-5 font-bold">${card.total_view ? card.total_view : 'View Data is Not Found'}</p>
+                        <div class="flex">
+                            <span><i class="fa-solid fa-eye"></i></span>
+                            <p class="ml-5 font-bold">${card.rating.number ? card.rating.number : 'View Data is Not Found'}</p>
                         </div> 
+                        <div>
+                        <span onclick="loadNewsDetails('')" class="mx-20 text-blue-500 hover:bg-indigo-100 px-3 rounded"><i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
