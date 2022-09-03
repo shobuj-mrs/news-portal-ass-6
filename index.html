@@ -31,6 +31,17 @@
                     <span
                         class="self-center text-2xl mx-2 font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500 px-4 py-2 rounded  whitespace-nowrap">Today</span>
                 </a>
+                <button data-collapse-toggle="navbar-default" type="button"
+                    class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul
                         class="flex flex-col p-4 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
@@ -53,7 +64,7 @@
 
         <!-- horizontal line start  -->
         <section>
-            <hr class="mb-3 h-px bg-gray-200 border-0 dark:bg-gray-700">
+            <hr class="mb-3 h-px bg-gray-600 border-1 dark:bg-gray-700">
         </section>
         <!-- horizontal line end  -->
 
@@ -70,19 +81,7 @@
     <main>
         <!-- news card section start  -->
         <section class="mt-12">
-            <div id="news-card-comtainer">
-
-                <a href="#"
-                    class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                        src="/docs/images/blog/image-4.jpg" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                            technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    </div>
-                </a>
+            <div id="news-card-comtainer" class="grid gap-5">
 
             </div>
         </section>
