@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The News Blogs</title>
+
+    <!-- tailwind and flowbite CDN link  -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+</head>
+
+<body class="w-11/12 mx-auto">
+    <!-- header section start -->
+    <header>
+        <!-- navber section start  -->
+        <nav class="bg-white border-gray-100 px-2 sm:px-4 py-2.5 rounded ">
+            <div class="container flex flex-wrap justify-between items-center mx-auto">
+                <a class="flex items-center">
+                    <img src="image/download.png" class="mr-3 h-6 sm:h-9 rounded-full" alt="...">
+                    <span
+                        class="self-center text-2xl font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500 px-4 py-2 rounded whitespace-nowrap">News</span>
+                    <span
+                        class="self-center text-2xl mx-2 font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500 px-4 py-2 rounded  whitespace-nowrap">Today</span>
+                </a>
+                <button data-collapse-toggle="navbar-default" type="button"
+                    class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                    <ul
+                        class="flex flex-col p-4 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                        <li>
+                            <a href="index.html"
+                                class="self-center text-2xl mx-2 font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500 px-4 py-2 rounded  whitespace-nowrap">News</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="self-center text-2xl mx-2 font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500 px-4 py-2 rounded  whitespace-nowrap">Blogs</a>
+                        </li>
+                        <li>
+                            <img src="image/images.jpg" class="mr-3 h-6 sm:h-9 rounded-full" alt="...">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- navber section end  -->
+
+        <!-- horizontal line start  -->
+        <section>
+            <hr class="mb-3 h-px bg-gray-600 border-1 dark:bg-gray-700">
+        </section>
+        <!-- horizontal line end  -->
+        <main>
+            <!-- suqstion no -1  -->
+            <section>
+                <div>
+                    <h1 class=" text-4xl font-semibold text-center my-12">What is the difference between var, let and
+                        const?</h1>
+                </div>
+
+                <div class="overflow-x-auto relative rounded">
+                    <table class="w-full text-sm text-left ">
+                        <thead class="text-xs text-indigo-600 uppercase">
+                            <tr>
+                                <th scope="col" class="py-3 text-center px-6">
+                                    Var
+                                </th>
+                                <th scope="col" class="py-3 text-center px-6">
+                                    Let
+                                </th>
+                                <th scope="col" class="py-3 text-center px-6">
+                                    Const
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white dark:bg-indigo-100">
+                                <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-black">
+                                    The scope of a var variable is functional scope.
+                                </th>
+                                <td class="py-4 px-6">
+                                    The scope of a let variable is block scope.
+                                </td>
+                                <td class="py-4 px-6">
+                                    The scope of a const variable is block scope.
+                                </td>
+
+                            </tr>
+                            <tr class="bg-white dark:bg-indigo-100">
+                                <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-black">
+                                    It can be updated and re-declared into the scope.
+                                </th>
+                                <td class="py-4 px-6">
+                                    It can be updated but cannot be re-declared into the scope.
+                                </td>
+                                <td class="py-4 px-6">
+                                    It cannot be updated or re-declared into the scope.
+                                </td>
+
+                            </tr>
+                            <tr class="bg-white dark:bg-indigo-100">
+                                <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap text-black">
+                                    It can be accessed without initialization as its default value is “undefined”.
+                                </th>
+                                <td class="py-4 px-6">
+                                    It cannot be accessed without initialization otherwise it will give referenceError.
+                                </td>
+                                <td class="py-4 px-6">
+                                    It cannot be accessed without initialization, as it cannot be declared without
+                                    initialization.
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- question no -2  -->
+            <section>
+                <div>
+                    <h1 class=" text-4xl font-semibold text-center my-12">What is the difference between arrow functions
+                        and regular functions?</h1>
+                </div>
+                <div class="grid grid-cols-2 gap-6 bg-indigo-100 p-6 mb-6 rounded">
+                    <div>
+                        <h2 class="text-3xl font-semibold text-center text-indigo-500">Arrow Function</h2>
+                        <div class="text-xl my-3">
+                            <p class="mb-3">1. The dynamic context means that the value of this depends on how the
+                                function is
+                                invoked. In JavaScript, there are 4 ways you can invoke a regular function.</p>
+                            <p class="mb-3">2. A consequence of this resolved lexically is that an arrow function cannot
+                                be used as
+                                a constructor.</p>
+                            <p class="mb-3">3.Now, in contrast with regular functions, the method defined using an arrow
+                                binds
+                                this lexically to the class instance.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl text-center font-semibold text-indigo-500">Regular Function</h2>
+                        <div class="text-xl my-3">
+                            <p class="mb-3">1. No matter how or where being executed, this value inside of an arrow
+                                function always
+                                equals this value from the outer function. In other words, the arrow function
+                                resolves this lexically.</p>
+                            <p class="mb-3">2. As seen in the previous section, the regular function can easily
+                                construct objects.
+                            </p>
+                            <p class="mb-3">3. As seen in the previous section, the regular function can easily
+                                construct objects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- question no- 3  -->
+
+            <section>
+                <h1 class=" text-4xl font-semibold text-center my-12">Why do we use the template string in javascript?
+                </h1>
+                <div class="bg-indigo-100 p-6 mb-6 rounded">
+                    <h3 class="text-2xl text-indigo-500 font-bold mb-4 text-center">Template String</h3>
+                    <p class="text-xl">There is no major difference in JavaScript between single- or double-quoted
+                        strings, unlike other
+                        languages that might allow interpolation in one type of string but not the other. In this
+                        context, interpolation refers to the evaluation of a placeholder as a dynamic part of a string.
+                    </p>
+                    <p class="text-xl">Template literals can do everything that regular strings can, so you could
+                        possibly replace all strings in your project with them and have the same functionality. However,
+                        the most common convention in codebases is to only use template literals when using the
+                        additional capabilities of template literals, and consistently using the single or double quotes
+                        for all other simple strings. Following this standard will make your code easier to read if
+                        examined by another developer.
+
+                        Now that you’ve seen how to declare strings with single quotes, double quotes, and backticks,
+                        you can move on to the first advantage of template literals: writing multi-line strings.</p>
+                </div>
+            </section>
+        </main>
+
+</body>
+
+</html>
