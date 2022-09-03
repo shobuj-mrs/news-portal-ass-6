@@ -1,9 +1,10 @@
-
+// navber toggle by default
 const loadNavbarDefault = () => {
     const navbarPart = document.getElementById('navbar-default');
     navbarPart.classList.toggle('hidden');
 }
 
+// load the categories name with API
 const loadDataCatagories = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
@@ -26,7 +27,7 @@ const displayDataCategories = (categories) => {
         categoriesContainer.appendChild(newCategoriesDiv);
     });
 }
-
+// load data news category name
 const loadCatagoryName = (catagoryName) => {
     const foundResultNewsCatagoryName = document.getElementById('found-result-news-catagory-name');
     foundResultNewsCatagoryName.innerHTML = `<h1> ${catagoryName}</h1>`
@@ -44,6 +45,8 @@ const toggleLoader = isLoading => {
     }
 }
 
+
+// load the news categories id section 
 const loadNewsCard = async (category_id) => {
     toggleLoader(true);
 
@@ -53,6 +56,7 @@ const loadNewsCard = async (category_id) => {
     loadDisplayNews(data.data);
 }
 
+// load the news card section
 const loadDisplayNews = (cards) => {
     const newsCardContainer = document.getElementById('news-card-container');
     newsCardContainer.innerHTML = '';
@@ -79,6 +83,7 @@ const loadDisplayNews = (cards) => {
     </div>
     </div>
     `;
+
     cards.forEach(card => {
         // console.log(card);
 
@@ -123,27 +128,28 @@ const loadDisplayNews = (cards) => {
             </div>
         </div>
         
-        `
+        `;
         newsCardContainer.appendChild(newCardDiv);
     })
 
     toggleLoader(false);
 }
 
-//load the news id data
+//load the news id data dynamically
 const loadCardNewsDetails = async (news_id) => {
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
     const res = await fetch(url);
     const data = await res.json();
     displayModalDetails(data.data[0]);
-
 }
+
+// display the news modal details 
 
 const displayModalDetails = (modalNews) => {
     const newsModalContainer = document.getElementById('modal-container');
     newsModalContainer.innerHTML = '';
 
-    console.log(modalNews);
+    // console.log(modalNews);
 
     const newsModalDiv = document.createElement('div');
     newsModalDiv.classList.add('modalnews');
@@ -160,22 +166,22 @@ const displayModalDetails = (modalNews) => {
                             
                             <div class="mt-3 text-center sm:mt-0 sm:text-left">
                                 <img src=${modalNews.image_url} alt="">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900 py-1" id="modal-title">${modalNews.title ? modalNews.title : 'No Title Found'}</h3>
+                                <h3 class="text-lg font-medium leading-6 text-gray-900 py-1" id="modal-title">${modalNews.title ? modalNews.title : 'Title is Not Found here'}</h3>
                                 <div class="mt-2">
-                                <p class="text-sm text-gray-500">${modalNews.details ? modalNews.details : 'No details Found'}</p>
+                                <p class="text-sm text-gray-500">${modalNews.details ? modalNews.details : 'News details is not Found here'}</p>
                                 </div>
                                 <div class="grid grid-cols-2 pt-6">
                                     <div class="flex items-center">
                                         <div>
-                                            <img class="w-10 h-10 rounded-full mr-4" src=${modalNews.author.img} alt="Image Not Found">
+                                            <img class="w-10 h-10 rounded-full mr-4" src=${modalNews.author.img} alt=" Image is  Not Found here">
                                         </div>
                                         <div>
                                             <p class="font-bold flex flex-col">
                                                 <div class="font-bold">
-                                                    ${modalNews.author.name ? modalNews.author.name : 'Author Name not Found!'}        
+                                                    ${modalNews.author.name ? modalNews.author.name : 'Author Name is not Found here!'}        
                                                 </div>
                                                 <div class="font-bold">
-                                                    ${modalNews.author.published_date ? modalNews.author.published_date : 'Date not Found!'}
+                                                    ${modalNews.author.published_date ? modalNews.author.published_date : 'Date is not Found!'}
                                                 </div>
                                                     
                                             </p>
@@ -185,7 +191,7 @@ const displayModalDetails = (modalNews) => {
                                     <div class="flex items-center justify-end">
                                     <span><i class="fa-solid fa-eye"></i></span>
                                         <div>
-                                            <p class="ml-5 font-bold">${modalNews.rating.number ? modalNews.rating.number : 'View Data is Not Found'}</p>
+                                            <p class="ml-5 font-bold">${modalNews.total_view ? modalNews.total_view : 'View Data is Not Found'}</p>
                                         </div> 
                                     </div>
                                 </div>
@@ -200,14 +206,11 @@ const displayModalDetails = (modalNews) => {
                     </div>
                 </div>
             <div>
-        `
+        `;
     newsModalContainer.appendChild(newsModalDiv);
-
-
-
 }
 
-
+// modal close section 
 const closeModal = () => {
     const defaltModal = document.getElementById('modalContainer')
     defaltModal.classList.add('hidden');
