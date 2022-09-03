@@ -1,4 +1,9 @@
 
+const loadNavbarDefault = () => {
+    const navbarPart = document.getElementById('navbar-default');
+    navbarPart.classList.toggle('hidden');
+}
+
 const loadDataCatagories = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
@@ -16,13 +21,32 @@ const displayDataCategories = (categories) => {
         const newCategoriesDiv = document.createElement('div');
         newCategoriesDiv.classList.add('news-category-name');
         newCategoriesDiv.innerHTML = `
-        <p onclick="loadNewsCard('${category.category_id}')" class="mx-7 hover:bg-indigo-100 hover:text-indigo-600 px-2 rounded font-medium">${category.category_name}</p>
+        <p onclick="loadNewsCard('${category.category_id}')" class="mx-6 hover:bg-indigo-100 hover:text-indigo-600 px-2 rounded font-medium">${category.category_name}</p>
         `;
         categoriesContainer.appendChild(newCategoriesDiv);
     });
 }
 
+const loadCatagoryName = (catagoryName) => {
+    const foundResultNewsCatagoryName = document.getElementById('found-result-news-catagory-name');
+    foundResultNewsCatagoryName.innerHTML = `<h1> ${catagoryName}</h1>`
+    console.log(catagoryName);
+}
+
+// loading the  spinner  part
+const toggleLoader = isLoading => {
+    const loaderSection = document.getElementById('loading');
+    if (isLoading) {
+        loaderSection.classList.remove('hidden')
+    }
+    else {
+        loaderSection.classList.add('hidden')
+    }
+}
+
 const loadNewsCard = async (category_id) => {
+    toggleLoader(true);
+
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -30,16 +54,18 @@ const loadNewsCard = async (category_id) => {
 }
 
 const loadDisplayNewsCard = (cards) => {
-    const newsCardContainer = document.getElementById('news-card-comtainer');
+    const newsCardContainer = document.getElementById('news-card-container');
     newsCardContainer.innerHTML = '';
 
+    const resultFound = document.getElementById('found-result-container');
+    resultFound.innerHTML = `<h1 class="text-3xl text-indigo-500">${cards.length} News items found for this category!!! </h1>`;
     cards.forEach(card => {
-        console.log(card);
+        // console.log(card);
 
         const newCardDiv = document.createElement('div');
         newCardDiv.classList.add('newsCard');
         newCardDiv.innerHTML = `
-        <div onclick="loadNewsDetails('${card._id}')" class="flex border border-2 drop-shadow-xl rounded-md ">
+        <div class="flex border border-2 drop-shadow-xl rounded-md flex-col lg:flex-row ">
             <div class="w-2/5 p-5">
             <img src=${card.image_url} alt="">
             </div>
@@ -56,12 +82,10 @@ const loadDisplayNewsCard = (cards) => {
                                     <img class="w-10 h-10 rounded-full mr-4" src=${card.author.img} alt="Image is Not Found Here">
                                 </div>
                             <div>
-                                <p class=" font-semibold">
+                                <p class=" font-semibold text-indigo-500">
                                     ${card.author.name ? card.author.name : 'Author Name  is not Found!'}
                                 </p>
-                                <p class=" text-xl">
-                                    ${card.author.published_date.length > 11 ? card.author.published_date.slice(0, 10) : 'This news published date is not Found!'}
-                                </p>
+                               
                        </div>
                    </div>
                        </div>
@@ -72,7 +96,7 @@ const loadDisplayNewsCard = (cards) => {
                             <p class="ml-5 font-bold">${card.rating.number ? card.rating.number : 'View Data is Not Found'}</p>
                         </div> 
                         <div>
-                        <span onclick="loadNewsDetails('')" class="mx-20 text-blue-500 hover:bg-indigo-100 px-3 rounded"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span onclick="loadCardDetails('${card._id}')"  class="mx-20 text-blue-500 hover:bg-indigo-100 px-3 rounded"><i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </div>
                 </div>
@@ -82,13 +106,92 @@ const loadDisplayNewsCard = (cards) => {
         `
         newsCardContainer.appendChild(newCardDiv);
     })
+
+    toggleLoader(false);
 }
-const loadNewsDetails = async (news_id) => {
-    const url = `https://openapi.programming-hero.com/api/news/${news_id};`
+
+//load the news id data
+const loadCardDetails = async (news_id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
     const res = await fetch(url);
     const data = await res.json();
-    // console.log(data.data[0]);
+    modalDetailsTheDisplay(data.data[0]);
 
 }
+
+const displayModalDetails = (modalNews) => {
+    const newsModalContainer = document.getElementById('modal-container');
+    newsModalContainer.innerHTML = '';
+
+    console.log(modalNews);
+
+    const newsModalDiv = document.createElement('div');
+    newsModalDiv.classList.add('modalnews');
+    newsModalDiv.innerHTML = `
+            <div>
+                <div id="modalContainer" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                
+                    <div class="fixed inset-0 z-10 overflow-y-auto">
+                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                            
+                            <div class="mt-3 text-center sm:mt-0 sm:text-left">
+                                <img src=${modalNews.image_url} alt="">
+                                <h3 class="text-lg font-medium leading-6 text-gray-900 py-1" id="modal-title">${modalNews.title ? modalNews.title : 'No Title Found'}</h3>
+                                <div class="mt-2">
+                                <p class="text-sm text-gray-500">${modalNews.details ? modalNews.details : 'No details Found'}</p>
+                                </div>
+                                <div class="grid grid-cols-2 pt-6">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <img class="w-10 h-10 rounded-full mr-4" src=${modalNews.author.img} alt="Image Not Found">
+                                        </div>
+                                        <div>
+                                            <p class="font-bold flex flex-col">
+                                                <div class="font-bold">
+                                                    ${modalNews.author.name ? modalNews.author.name : 'Author Name not Found!'}        
+                                                </div>
+                                                <div class="font-bold">
+                                                    ${modalNews.author.published_date ? modalNews.author.published_date : 'Date not Found!'}
+                                                </div>
+                                                    
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-end">
+                                    <span><i class="fa-solid fa-eye"></i></span>
+                                        <div>
+                                            <p class="ml-5 font-bold">${modalNews.rating.number ? modalNews.total_view : 'No views'}</p>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button onclick="closeModal()" type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <div>
+        `
+    newsModalContainer.appendChild(newsModalDiv);
+
+
+
+}
+
+
+const closeModal = () => {
+    const defaltModal = document.getElementById('modalContainer')
+    defaltModal.classList.add('hidden');
+}
+
 
 loadDataCatagories();
