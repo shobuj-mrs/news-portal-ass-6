@@ -60,7 +60,7 @@ const loadDisplayNews = (cards) => {
     const resultFound = document.getElementById('found-result-container');
     resultFound.innerHTML = `
     <div class="container mx-auto">
-    <div class="bg-white p-2 my-4 ">
+    <div class="bg-white p-2 my-2 ">
        <h1 class="text-3xl text-indigo-500">${cards.length} News items found for this category!!! </h1>
     </div>
     <div class="flex items-center justify-between my-8">
